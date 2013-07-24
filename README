@@ -1,0 +1,2 @@
+This is a Vagrant setup for running Zocalo (http://zocalo.sourceforge.net).
+A side effect will be to create a Chef cookbook for Zocalo.
