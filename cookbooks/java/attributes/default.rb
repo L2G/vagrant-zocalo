@@ -22,7 +22,10 @@ default['java']['remove_deprecated_packages'] = false
 
 # default jdk attributes
 default['java']['install_flavor'] = "openjdk"
-default['java']['jdk_version'] = '6'
+default['java']['jdk_version'] = value_for_platform_family(
+  'suse'    => '7',
+  'default' => '6'
+)
 default['java']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i586"
 default['java']['openjdk_packages'] = []
 default['java']['accept_license_agreement'] = false
@@ -47,6 +50,10 @@ when "debian"
 when "smartos"
   default['java']['java_home'] = "/opt/local/java/sun6"
   default['java']['openjdk_packages'] = ["sun-jdk#{node['java']['jdk_version']}", "sun-jre#{node['java']['jdk_version']}"]
+when "suse"
+  v = node['java']['jdk_version']
+  default['java']['java_home'] = "/usr/lib#{'64' if node['java']['arch'] == 'x86_64'}/jvm"
+  default['java']['openjdk_packages'] = ["java-1_#{v}_0-openjdk", "java-1_#{v}_0-openjdk-devel"]
 else
   default['java']['java_home'] = "/usr/lib/jvm/default-java"
   default['java']['openjdk_packages'] = ["openjdk-#{node['java']['jdk_version']}-jdk"]
