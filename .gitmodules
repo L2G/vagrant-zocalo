@@ -1,0 +1,3 @@
+[submodule "cookbooks/tar"]
+	path = cookbooks/tar
+	url = https://github.com/cramerdev/tar-cookbook.git
